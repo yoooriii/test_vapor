@@ -12,6 +12,10 @@ public func routes(_ router: Router) throws {
         return "Hello, world!"
     }
 
+    router.get("api") { req in
+        return "API test interface"
+    }
+
     // Example of configuring a controller
     let todoController = TodoController()
     router.get("todos", use: todoController.index)
