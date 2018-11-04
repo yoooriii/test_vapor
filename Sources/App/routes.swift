@@ -1,4 +1,11 @@
 import Vapor
+import SwiftKuery
+import SwiftKueryPostgreSQL
+
+let grades = Grades()
+ // First build query
+ let query = Select(grades.course, grades.grade, from: grades)
+
 
 /// Register your application's routes here.
 public func routes(_ router: Router) throws {
@@ -14,6 +21,28 @@ public func routes(_ router: Router) throws {
 
     router.get("api") { req in
         return "API test interface"
+    }
+
+    router.get("users", Int.parameter) { req in
+        let id = try req.parameters.next(Int.self)
+        return "User id: #\(id)"
+    }
+
+        router.get("test2") { req in
+        return "API ???test2???"
+    }
+
+    router.get("sql/student") { req in
+
+//    public func execute(query: Query, onCompletion: @escaping ((QueryResult) -> ())) {
+//    public func execute(_ raw: String, onCompletion: @escaping ((QueryResult) -> ())) {
+
+         let sql = "SELECT * from student;"
+        // dbCnnection.execute(sql, onCompletion:{ (sqlResult) -> Void in
+        //     print("sqlResult: \(sqlResult)")
+        // })
+
+        return sql//"getting student from db..."
     }
 
     // Example of configuring a controller
